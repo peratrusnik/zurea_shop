@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { loginUser } from "../../services/auth.service";
 
 function LoginSectionComponent(props) {
   const [signInObj, setSignInObj] = useState({
@@ -6,6 +7,7 @@ function LoginSectionComponent(props) {
     password: "",
   });
   const [validationMsg, setValidationMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
 
   const handleSignInObj = (e) => {
     let newStateObj = signInObj;
@@ -21,6 +23,19 @@ function LoginSectionComponent(props) {
       );
     }
     //todo: call API
+    loginUser(signInObj)
+      .then(response => {
+        console.log('response....', response);
+      })
+      .catch(error => {     
+        console.log('error....',error);
+        if (error) {
+          setErrorMsg('Something went wrong. Please try again.')
+        }
+      })
+      .finally(() => {
+        // at the end of api calls
+      })
   };
   return (
     <>
@@ -50,6 +65,7 @@ function LoginSectionComponent(props) {
             />
           </div>
           {validationMsg ? <p>{validationMsg}</p> : null}
+          {errorMsg ? <p>{errorMsg}</p> : null }
           <button onClick={onLoginSubmit}>Sign In</button>
         </div>
       </div>
