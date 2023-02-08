@@ -1,16 +1,26 @@
-import React, { useState } from "react";
+import { useEffect, useState } from 'react';
 import { loginUser } from "../../services/auth.service";
+import PageTitleComponent from "../pageTitle/PageTitle.Component";
+import useLocalStorage from "../../hooks/useLocalStorage";
 
-function LoginSectionComponent(props) {
+const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
     email: "",
     password: "",
   });
   const [validationMsg, setValidationMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [loggedUser, setLoggedUser] = useLocalStorage("zureaUser", {
+    email: "",
+    password: "",
+  })
+
+  useEffect(()=> {
+    console.log(loggedUser)
+  },[])
 
   const handleSignInObj = (e) => {
-    let newStateObj = signInObj;
+    let newStateObj = {...signInObj};
     newStateObj[e.target.name] = e.target.value;
     setSignInObj(newStateObj);
   };
@@ -18,14 +28,15 @@ function LoginSectionComponent(props) {
   const onLoginSubmit = () => {
     console.log(signInObj);
     if (!signInObj.password || !signInObj.email) {
-      setValidationMsg(
-        `Required field: ${!signInObj.password ? "password" : "email"}`
-      );
+      return setValidationMsg(`Required field: ${!signInObj.password ? "password" : "email"}`);
     }
     //todo: call API
     loginUser(signInObj)
       .then(response => {
         console.log('response....', response);
+
+        setLoggedUser(signInObj)
+
       })
       .catch(error => {     
         console.log('error....',error);
@@ -39,10 +50,13 @@ function LoginSectionComponent(props) {
   };
   return (
     <>
-      <h1 className="page-title">Log in to your account</h1>
+      <PageTitleComponent>
+          <h1>Log in to your account</h1>        
+      </PageTitleComponent>
+        
       <div className="form-wrapper">
         <div className="login-form">
-          <div className="form-floating mb-3">
+          <div className="form mb-3">
             <label htmlFor="floatingInput">Email address</label>
             <input
               type="email"
@@ -53,7 +67,7 @@ function LoginSectionComponent(props) {
               onChange={(e) => handleSignInObj(e)}
             />
           </div>
-          <div className="form-floating">
+          <div className="form">
             <label htmlFor="floatingPassword">Password</label>
             <input
               type="password"
