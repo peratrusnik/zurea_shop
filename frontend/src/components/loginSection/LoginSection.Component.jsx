@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { loginUser } from "../../services/auth.service";
-import PageTitleComponent from "../pageTitle/PageTitle.Component";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { loginUser, setUserToLocalStorage } from "../../services/auth.service";
+import { useNavigate } from 'react-router-dom';
 
 const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
@@ -10,14 +9,7 @@ const LoginSectionComponent = () => {
   });
   const [validationMsg, setValidationMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const [loggedUser, setLoggedUser] = useLocalStorage("zureaUser", {
-    email: "",
-    password: "",
-  })
-
-  useEffect(()=> {
-    console.log(loggedUser)
-  },[])
+  const navigate = useNavigate()
 
   const handleSignInObj = (e) => {
     let newStateObj = {...signInObj};
@@ -35,7 +27,12 @@ const LoginSectionComponent = () => {
       .then(response => {
         console.log('response....', response);
 
-        setLoggedUser(signInObj)
+        if (response.status === 215) {
+          setErrorMsg(response.data)
+        } else {
+          setUserToLocalStorage(response.data)
+          navigate('/')
+        }
 
       })
       .catch(error => {     
@@ -50,9 +47,7 @@ const LoginSectionComponent = () => {
   };
   return (
     <>
-      <PageTitleComponent>
-          <h1>Log in to your account</h1>        
-      </PageTitleComponent>
+    <h1 className="page-title">Log in to your account</h1>
         
       <div className="form-wrapper">
         <div className="login-form">
