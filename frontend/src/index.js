@@ -8,24 +8,25 @@ import { RouterProvider } from 'react-router-dom';
 import HomePageComponent from './pages/HomePage.Component';
 import LoginPageComponent from './pages/LoginPage.Component';
 import { createBrowserRouter } from 'react-router-dom';
+import routes from './routes/routes';
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePageComponent />,    
-  },
-  {
-    path: "/login",
-    element: <LoginPageComponent/>
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <HomePageComponent />,
+//   },
+//   {
+//     path: "/login",
+//     element: <LoginPageComponent/>
+//   },
+// ]);
+
+const router = createBrowserRouter(routes)
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-        <App />
-    </RouterProvider>
+    <RouterProvider router={router}/>
   </React.StrictMode>
 );
 

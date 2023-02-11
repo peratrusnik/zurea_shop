@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { loginUser, setUserToLocalStorage } from "../../services/auth.service";
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const LoginSectionComponent = () => {
   const [signInObj, setSignInObj] = useState({
@@ -47,7 +47,8 @@ const LoginSectionComponent = () => {
   };
   return (
     <>
-    <h1 className="page-title">Log in to your account</h1>
+      <h1 className="page-title">Log in to your account
+      </h1>
         
       <div className="form-wrapper">
         <div className="login-form">

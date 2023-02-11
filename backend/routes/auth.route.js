@@ -2,6 +2,16 @@ const express = require('express');
 const UserModel = require('../models/user.model');
 const authRoute = express.Router()
 
+authRoute.get('/users', (req, res) => {
+  UserModel.find({}, (error, users) => {
+    if (error) {
+      res.status(415).send(error)
+      return      
+    }
+    res.send(users)
+  })
+})
+
 authRoute.post('/login', (req, res) => {
     console.log('body', req.body);
     if (!req.body.email || !req.body.password) {
@@ -13,15 +23,15 @@ authRoute.post('/login', (req, res) => {
       // if user not exists in DB
       if (!data) {
         res.status(215).send('Bad credentials.')
-        return
+        // return
       }
-      console.log({...data, password: ""});
       // user exists in DB
       res.status(200).send(data)
+      return
     })
     .catch(error => {
       console.log(error);
-      re.status(415).send(error)
+      res.status(415).send(error)
     })
 })
 authRoute.post('/register', (req, res) => {
