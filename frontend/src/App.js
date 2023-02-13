@@ -1,19 +1,32 @@
-import axios from "axios";
-import LoginPageComponent from "./pages/LoginPage.Component";
-import {Route, Routes} from 'react-router-dom'
-import HomePageComponent from "./pages/HomePage.Component";
+import { Outlet } from 'react-router-dom';
+import NavComponent from './components/nav/Nav.Component';
+import TopHeaderInfoComponent from './components/topHeaderInfo/TopHeaderInfo.Component';
+import axios from 'axios'
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import {saveUser} from "./redux/user.slicer";
 
 axios.defaults.baseURL = 'http://localhost:5050/api'
-
 function App() {
-  return (
-    <div className="container">
-      <Routes>
-        <Route path="/" element={<HomePageComponent />} />
-        <Route path="/login" element={<LoginPageComponent />} />
-      </Routes>
-    </div>
-  );
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		console.log(localStorage.getItem('zu_user'));
+		let userLocalStorageStr = localStorage.getItem('zu_user')
+
+		if (userLocalStorageStr) {
+			dispatch(saveUser(JSON.parse(userLocalStorageStr)))
+		}
+	}, [])
+	return (
+		<div>
+			<TopHeaderInfoComponent />
+			<div className='container'>
+				<NavComponent />
+				<Outlet />
+			</div>
+		</div>
+	);
 }
 
 export default App;

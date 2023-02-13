@@ -1,9 +1,8 @@
-const HomePageComponent = () => {
-    return (
-        <>
-            <h1>HOME PAGE</h1>
-        </>
-    )
+import React from 'react';
+
+function HomePageComponent() {
+	return <div>HomePage Component</div>;
 }
 
 export default HomePageComponent;
+

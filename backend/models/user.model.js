@@ -1,15 +1,15 @@
-const Mongoose = require('mongoose')
+ const Mongoose = require('mongoose')
 
+ // todo: add firstName, lastName, address, city, gender, isAdmin
+ const userSchema = new Mongoose.Schema({
+     email: {
+         type: String
+     },
+     password: {
+         type: String
+     }
+ })
 
-const userSchema = new Mongoose.Schema({
-    email: {
-        type: String
-    },
-    password: {
-        type: String
-    }
-})
+ const UserModel = Mongoose.model('users', userSchema)
 
-const UserModel = Mongoose.model('users', userSchema) // users name of document in mongoDB
-
-module.exports = UserModel; 
+ module.exports = UserModel
