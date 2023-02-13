@@ -2,6 +2,7 @@ import App from "../App";
 import ErrorPageComponet from "../pages/ErrorPage.Componet";
 import HomePageComponent from "../pages/HomePage.Component";
 import LoginPageComponent from "../pages/LoginPage.Component";
+import UserPageComponent from "../pages/UserPage.Component";
 
 const routes = [
     {
@@ -16,6 +17,10 @@ const routes = [
             {
                 path: "/login",
                 element: <LoginPageComponent/>,
+            },  
+            {
+                path: "/user/:id",
+                element: <UserPageComponent/>,
             },  
         ]
     }

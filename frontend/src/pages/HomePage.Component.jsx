@@ -13,9 +13,6 @@ const HomePageComponent = () => {
         })
     }, [])
 
-
-1.18
-
     return (
         <div>
             <h1>Home page</h1>
