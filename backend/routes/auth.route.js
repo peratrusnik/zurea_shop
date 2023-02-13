@@ -12,6 +12,18 @@ authRoute.get('/users', (req, res) => {
   })
 })
 
+authRoute.get('/user/:id', (req, res) => {
+  // let {id} = req.params
+  // UserModel.find({"_id": id}) // moze i ovako!!!
+  UserModel.find({"_id": req.params.id})
+    .then((user) => {
+        res.send(user)
+    })
+    .catch((error) => {
+        res.send(error)
+  })
+})
+
 authRoute.post('/login', (req, res) => {
     console.log('body', req.body);
     if (!req.body.email || !req.body.password) {
