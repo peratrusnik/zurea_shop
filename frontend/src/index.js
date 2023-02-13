@@ -8,6 +8,9 @@ import { RouterProvider } from 'react-router-dom';
 import HomePageComponent from './pages/HomePage.Component';
 import LoginPageComponent from './pages/LoginPage.Component';
 import { createBrowserRouter } from 'react-router-dom';
+import { configureStore } from '@reduxjs/toolkit';
+import userSlicer from './redux/user.slicer';
+import { Provider } from 'react-redux';
 
 const router = createBrowserRouter([
   {
@@ -19,13 +22,17 @@ const router = createBrowserRouter([
     element: <LoginPageComponent/>
   },
 ]);
+const store = configureStore({
+  reducer: userSlicer
+})
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router}>
-        <App />
-    </RouterProvider>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>
 );
 
