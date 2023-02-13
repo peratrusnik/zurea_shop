@@ -11,7 +11,7 @@ const userSlicer = createSlice({
     // define all actions
     reducers: {
         saveUser(state, data) {
-            console.log(' save user', data.payload);
+            // console.log(' save user', data.payload);
             state.user = data.payload
         },
         removeUser(state) {
