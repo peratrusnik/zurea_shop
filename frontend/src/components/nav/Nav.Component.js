@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
 import {
-	AiOutlineSearch,
 	AiOutlineUser,
 	AiOutlineShoppingCart,
 	AiOutlineMenu,
@@ -12,6 +11,7 @@ import NavBarLinkComponent from "./components/NavBarLink.Component";
 import {useDispatch, useSelector} from "react-redux";
 import {removeUserFromLocalStorage} from "../../services/auth.service";
 import {removeUser} from "../../redux/user.slicer";
+import NavBarSearchComponent from './components/NavBarSearch.Component';
 
 function NavComponent() {
 	const [toggle, setToggle] = useState(false);
@@ -19,7 +19,7 @@ function NavComponent() {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		console.log(userStore);
+		// console.log(userStore);
 	}, [userStore])
 
 	const onLogOut = () => {
@@ -56,7 +56,7 @@ function NavComponent() {
 					<NavBarLinkComponent btnTitle="Home" redirectUrl="/" />
 				</li>
 				<li>
-					<NavBarLinkComponent btnTitle="Shoes" redirectUrl="/" />
+					<NavBarLinkComponent btnTitle="Shop" redirectUrl="/shop" />
 				</li>
 				<li>
 					<NavBarLinkComponent btnTitle="Watch" redirectUrl="/"/>
@@ -68,7 +68,7 @@ function NavComponent() {
 			{/* profile and login section */}
 			<div className='user'>
 				<div className='profile'>
-					<AiOutlineSearch />
+					<NavBarSearchComponent />
 					<div className='dropdown'>
 						<button
 							className='btn  dropdown-toggle'

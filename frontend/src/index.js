@@ -13,6 +13,7 @@ import LoginPageComponent from './pages/LoginPage.Component';
 import {configureStore} from "@reduxjs/toolkit";
 import userSlicer from "./redux/user.slicer";
 import {Provider} from "react-redux";
+import ShopPageComponent from "./pages/ShopPage.Component";
 
 const router = createBrowserRouter([
 	{
@@ -27,6 +28,14 @@ const router = createBrowserRouter([
 				path: '/login',
 				element: <LoginPageComponent />,
 			},
+			{
+				path: '/shop',
+				element: <ShopPageComponent />
+			},
+			{
+				path: '/shop/:searchParams',
+				element: <ShopPageComponent />
+			}
 		],
 	},
 ]);

@@ -4,6 +4,7 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const authRoute = require('./routes/auth.route')
 const MONGO_DB_URL = require('./config/db.config')
+const productRoute = require("./routes/product.route");
 const portNumber = 5050
 
 mongoose.set('strictQuery', false)
@@ -20,7 +21,11 @@ mongoose.connect(MONGO_DB_URL)
 // communicate with external servers
 app.use(cors())
 app.use(express.json())
+
+//routes
 app.use('/api/auth', authRoute)
+app.use('/api/product', productRoute)
+
 app.listen(portNumber, (error) => {
     if (error) {
         console.log('---ERROR ON SERVER START---');
